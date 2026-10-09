@@ -1,0 +1,309 @@
+```html
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCraft Studio — Разработка современных сайтов под ключ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <header class="sticky top-0 z-40 w-full glass-panel border-b transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold text-xl fa-code"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight">Web<span class="gradient-text">Craft</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#portfolio" class="hover:text-brand-500 transition-colors">Портфолио</a>
+                <a href="#services" class="hover:text-brand-500 transition-colors">Услуги и Цены</a>
+                <a href="#calculator" class="hover:text-brand-500 transition-colors">Калькулятор</a>
+                <a href="#process" class="hover:text-brand-500 transition-colors">Процесс</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button id="themeToggle" class="p-2.5 rounded-xl glass-card hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" title="Сменить тему">
+                    <i class="fa-solid fa-moon hidden dark:block text-yellow-400"></i>
+                    <i class="fa-solid fa-sun block dark:hidden text-amber-500"></i>
+                </button>
+                <a href="#calculator" class="px-5 py-2.5 rounded-xl gradient-bg text-white font-semibold hover:shadow-lg hover:shadow-brand-500/25 hover:scale-[1.02] transition-all duration-200">
+                    Заказать сайт
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="flex items-center space-x-2 md:hidden">
+                <button id="themeToggleMobile" class="p-2 rounded-xl glass-card">
+                    <i class="fa-solid fa-moon hidden dark:block text-yellow-400"></i>
+                    <i class="fa-solid fa-sun block dark:hidden text-amber-500"></i>
+                </button>
+                <button id="mobileMenuBtn" class="p-2 rounded-xl glass-card text-2xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-b px-4 pt-2 pb-6 space-y-3">
+            <a href="#portfolio" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-medium">Портфолио</a>
+            <a href="#services" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-medium">Услуги и Цены</a>
+            <a href="#calculator" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-medium">Калькулятор</a>
+            <a href="#process" class="mobile-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-medium">Процесс</a>
+            <a href="#calculator" class="mobile-link block w-full text-center py-3 rounded-xl gradient-bg text-white font-semibold shadow-md">Заказать сайт</a>
+        </div>
+    </header>
+
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <!-- Background Ambient Lights -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/20 dark:bg-brand-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-purple-500/20 dark:bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-medium mb-8 border border-brand-500/30 text-brand-600 dark:text-brand-400">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span>Принимаю заказы на разработку</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
+                Создаю <span class="gradient-text">современные сайты</span>, которые продают ваш бизнес
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-normal">
+                Быстрые, адаптированные под мобильные устройства Landing Page, интернет-магазины и веб-приложения с продуманным дизайном.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl gradient-bg text-white font-bold text-lg shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:scale-105 transition-all">
+                    Рассчитать стоимость <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card font-semibold text-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-all border border-slate-300 dark:border-slate-700">
+                    Смотреть работы
+                </a>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-3xl font-extrabold gradient-text">30+</div>
+                    <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Реализованных проектов</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-3xl font-extrabold gradient-text">100%</div>
+                    <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Адаптивность и скорость</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-3xl font-extrabold gradient-text">от 3 дней</div>
+                    <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Сроки разработки</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-card">
+                    <div class="text-3xl font-extrabold gradient-text">24/7</div>
+                    <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Техническая поддержка</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-16 md:py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold">Мои лучшие работы</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Выберите категорию, чтобы посмотреть примеры выполненных сайтов.</p>
+                
+                <!-- Category Filters -->
+                <div class="mt-8 flex flex-wrap justify-center gap-2" id="portfolioFilters">
+                    <button data-filter="all" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold gradient-bg text-white shadow-md transition-all">Все работы</button>
+                    <button data-filter="landing" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold glass-card hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">Landing Page</button>
+                    <button data-filter="ecommerce" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold glass-card hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">Магазины</button>
+                    <button data-filter="corporate" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold glass-card hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">Корпоративные</button>
+                    <button data-filter="app" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold glass-card hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">Веб-Сервисы</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolioGrid">
+                <!-- Items populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 md:py-24 bg-slate-100/50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold">Тарифы и Услуги</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Прозрачное ценообразование без скрытых платежей. Каждый тариф включает базовое SEO и оптимизацию.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Card -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border hover:border-brand-500/50 transition-all relative">
+                    <div>
+                        <h3 class="text-2xl font-bold">Landing Page</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Идеально для запуска продукта или услуги</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold">от $250</span>
+                            <span class="text-slate-500 text-sm"> / от 3 дней</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> До 5 информационных блоков</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Уникальный адаптивный дизайн</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Форма обратной связи / Telegram Bot</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Оптимизация скорости загрузки</li>
+                            <li class="flex items-center text-slate-400"><i class="fa-solid fa-xmark text-slate-400 mr-3"></i> Без системы управления (CMS)</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl border border-brand-500 text-brand-600 dark:text-brand-400 font-bold hover:bg-brand-500 hover:text-white transition-all">Выбрать тариф</a>
+                </div>
+
+                <!-- Popular Card -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border-2 border-brand-500 shadow-xl shadow-brand-500/10 relative transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 gradient-bg text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md">
+                        Популярный выбор
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">Бизнес Сайт</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Для компаний, которым нужно многостраничное представительство</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold gradient-text">от $500</span>
+                            <span class="text-slate-500 text-sm"> / от 7 дней</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> До 10 страниц (О нас, Услуги, Блог)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Удобная CMS (Admin panel)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> SEO-подготовка страниц</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Анимации и интерактивные элементы</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Подключение аналитики</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl gradient-bg text-white font-bold shadow-lg shadow-brand-500/25 hover:scale-[1.02] transition-all">Выбрать тариф</a>
+                </div>
+
+                <!-- E-Commerce Card -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border hover:border-brand-500/50 transition-all relative">
+                    <div>
+                        <h3 class="text-2xl font-bold">Интернет-Магазин</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Полноценная торговая площадка с приемом онлайн-оплаты</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold">от $900</span>
+                            <span class="text-slate-500 text-sm"> / от 14 дней</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Каталог товаров, Корзина, Фильтры</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Интеграция эквайринга (Stripe/LiqPay/PayPal)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Личный кабинет покупателя</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Панель управления товарами и заказами</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> Подключение служб доставки</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="mt-8 block text-center py-3 rounded-xl border border-brand-500 text-brand-600 dark:text-brand-400 font-bold hover:bg-brand-500 hover:text-white transition-all">Выбрать тариф</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="py-16 md:py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold">Рассчитайте стоимость проекта</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Выберите параметры вашего будущего сайта и сразу же отправьте заявку на разработку.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Form Inputs -->
+                <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl space-y-6">
+                    <!-- Step 1: Site Type -->
+                    <div>
+                        <label class="block text-sm font-bold uppercase text-slate-400 mb-3">1. Тип сайта</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="cursor-pointer border rounded-2xl p-4 flex flex-col items-center justify-center text-center hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/10 transition-all">
+                                <input type="radio" name="siteType" value="landing" class="sr-only" checked data-price="250">
+                                <i class="fa-solid fa-rocket text-2xl text-brand-500 mb-2"></i>
+                                <span class="font-bold text-sm">Landing Page</span>
+                                <span class="text-xs text-slate-500 mt-1">$250</span>
+                            </label>
+                            <label class="cursor-pointer border rounded-2xl p-4 flex flex-col items-center justify-center text-center hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-500/10 transition-all">
+                                <input type="radio" name="siteType" value="corporate" class="sr-only" data-price="500">
+                                <i class="fa-solid fa-briefcase text-2xl text-brand-500 mb-2"></i>
+                                <span class="font-bold text-sm">Бизнес Сайт</span>
+                                <span class="text-xs text-
